@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/calculator.dart';
+import '/flashlight.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,7 +46,14 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) => const Calculator()));
                   },
                   icon: const Icon(Icons.abc),
-                  label: const Text('АНТИ'))
+                  label: const Text('АНТИКалькулятор')),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Flashlight()));
+                  },
+                  icon: const Icon(Icons.flashlight_off),
+                  label: const Text('АНТИФонарик'))
             ],
           ),
         ));
