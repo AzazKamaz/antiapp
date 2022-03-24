@@ -30,7 +30,7 @@ Conceptual:
 
 - **AntiWeather** shows the weather in units you don't want to see it in. Uses [OpenWeather API](https://openweathermap.org).
 
-- **AntiCamera** deletes the last photo when taking a picture.
+- **AntiCamera** (underway) deletes the last photo when taking a picture.
 
 - **AntiCalendar** shows in what years and months there was such a number with such a day of the week.
 
