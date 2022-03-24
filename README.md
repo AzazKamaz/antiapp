@@ -2,17 +2,27 @@
 
 A valiant attempt to make an app that will revolutionize the way users think about super-apps. The app does the usual things in reverse (more in [Features](#features)).
 
+## How to build
+
+Just download and install APK from Releases section of the repository.
+
 ## Screens
 
 - Home screen with a list of anti-apps.
 
-- Screen of AntiCalculator
+- Screen of **AntiCalculator**.
 
-- Screen of AntiFlashlight
+- Screen of **AntiFlashlight**.
 
-- Screens of AntiWeather (search and details)
+- Screens of **AntiWeather** (search and details).
+
+- Screen of **AntiCamera**.
+
+- Screen of **AntiCalendar**.
 
 ## Features
+
+Conceptual:
 
 - **AntiCalculator** composes an equation where the entered number is the root.
 
@@ -23,3 +33,20 @@ A valiant attempt to make an app that will revolutionize the way users think abo
 - **AntiCamera** deletes the last photo when taking a picture.
 
 - **AntiCalendar** shows in what years and months there was such a number with such a day of the week.
+
+Useful for grading:
+
+- `flutter_lints` is used.
+
+- The iOS build is successful.
+
+- GitHub release is created.
+
+- `async/await` are used.
+
+- `build_runnder` is used too.
+- And additionally some other architectural features from the evaluation category Advanced...
+
+## Team
+
+Aleksandr Krotov, Karina Singatullina, Gleb Osotov, Igor Belov.
