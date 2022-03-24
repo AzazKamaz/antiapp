@@ -1,16 +1,25 @@
-# antiapp
+# AntiApp
 
-A new Flutter project.
+A valiant attempt to make an app that will revolutionize the way users think about super-apps. The app does the usual things in reverse (more in [Features](#features)).
 
-## Getting Started
+## Screens
 
-This project is a starting point for a Flutter application.
+- Home screen with a list of anti-apps.
 
-A few resources to get you started if this is your first Flutter project:
+- Screen of AntiCalculator
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Screen of AntiFlashlight
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Screens of AntiWeather (search and details)
+
+## Features
+
+- **AntiCalculator** composes an equation where the entered number is the root.
+
+- **AntiFlashlight** shines screen in black.
+
+- **AntiWeather** shows the weather in units you don't want to see it in. Uses [OpenWeather API](https://openweathermap.org).
+
+- **AntiCamera** deletes the last photo when taking a picture.
+
+- **AntiCalendar** shows in what years and months there was such a number with such a day of the week.
