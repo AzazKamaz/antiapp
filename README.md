@@ -47,6 +47,6 @@ Useful for grading:
 - `build_runnder` is used too.
 - And additionally some other architectural features from the evaluation category Advanced...
 
-## Team
+## AntiDev Team
 
 Aleksandr Krotov, Karina Singatullina, Gleb Osotov, Igor Belov.
