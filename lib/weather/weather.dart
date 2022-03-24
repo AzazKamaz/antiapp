@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:antiapp/weather/weather_api.dart';
 import 'package:flutter/material.dart';
 import 'weather_details.dart';

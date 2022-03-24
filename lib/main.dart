@@ -6,7 +6,7 @@ import 'package:camera/camera.dart';
 import '/calculator.dart';
 import '/flashlight.dart';
 import '/calendar.dart';
-import '/anticamera.dart';
+import '/camera.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,8 +76,8 @@ class _AppListPageState extends State<AppListPage> {
                   label: const Text('AntiWeather')),
               ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Calendar()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Calendar()));
                   },
                   icon: const Icon(Icons.calendar_today),
                   label: const Text('AntiCalendar')),
