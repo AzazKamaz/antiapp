@@ -1,38 +1,48 @@
 import 'package:antiapp/weather/weather.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '/calculator.dart';
 import '/flashlight.dart';
+import '/calendar.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(const AntiApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AntiApp extends StatelessWidget {
+  const AntiApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'AntiApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
       ),
-      home: const HomePage(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.system,
+      home: const AppListPage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class AppListPage extends StatefulWidget {
+  const AppListPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AppListPage> createState() => _AppListPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AppListPageState extends State<AppListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +72,13 @@ class _HomePageState extends State<HomePage> {
                   },
                   icon: const Icon(Icons.cloud_off),
                   label: const Text('AntiWeather'))
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Calendar()));
+                  },
+                  icon: const Icon(Icons.calendar_today),
+                  label: const Text('AntiCalendar')),
             ],
           ),
         ));
