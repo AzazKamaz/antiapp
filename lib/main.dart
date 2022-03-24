@@ -1,3 +1,4 @@
+import 'package:antiapp/weather/weather.dart';
 import 'package:flutter/material.dart';
 
 import '/calculator.dart';
@@ -46,14 +47,21 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) => const Calculator()));
                   },
                   icon: const Icon(Icons.abc),
-                  label: const Text('АНТИКалькулятор')),
+                  label: const Text('AntiCalculator')),
               ElevatedButton.icon(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Flashlight()));
                   },
                   icon: const Icon(Icons.flashlight_off),
-                  label: const Text('АНТИФонарик'))
+                  label: const Text('AntiFlashlight')),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Weather()));
+                  },
+                  icon: const Icon(Icons.cloud_off),
+                  label: const Text('AntiWeather'))
             ],
           ),
         ));
