@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-
+// move the entry point later to main.dart
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();
-  final firstCamera = cameras.last;
+  final firstCamera = cameras.first;
 
   runApp(
     MaterialApp(
