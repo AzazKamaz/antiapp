@@ -16,6 +16,7 @@ class _CalculatorState extends State<Calculator> {
   late final TextEditingController controller;
   int? segmentedControlValue = 0;
   String calculationResult = '';
+
   @override
   void initState() {
     controller = TextEditingController();
@@ -25,6 +26,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: const Text('Calculator')),
         body: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
