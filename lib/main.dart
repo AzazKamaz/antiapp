@@ -1,10 +1,12 @@
 import 'package:antiapp/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:camera/camera.dart';
 
 import '/calculator.dart';
 import '/flashlight.dart';
 import '/calendar.dart';
+import '/anticamera.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,14 +73,29 @@ class _AppListPageState extends State<AppListPage> {
                         builder: (context) => const Weather()));
                   },
                   icon: const Icon(Icons.cloud_off),
-                  label: const Text('AntiWeather'))
+                  label: const Text('AntiWeather')),
               ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Calendar()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Calendar()));
                   },
                   icon: const Icon(Icons.calendar_today),
                   label: const Text('AntiCalendar')),
+              ElevatedButton.icon(
+                  onPressed: () async {
+                    var cams = await availableCameras();
+                    if (cams.isNotEmpty) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => TakePictureScreen(
+                                camera: cams.first,
+                              )));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No camera found')));
+                    }
+                  },
+                  icon: const Icon(Icons.camera),
+                  label: const Text('AntiCamera')),
             ],
           ),
         ));
