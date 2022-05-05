@@ -41,6 +41,7 @@ dependencies:
   dio: ^4.0.0
   json_annotation: ^4.0.1
   logger:
+  firebase_crashlytics: ^2.7.2
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "148835388076",
+    "project_id": "flutter-antiapp",
+    "storage_bucket": "flutter-antiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148835388076:android:9ef61acc3c317bd63bed09",
+        "android_client_info": {
+          "package_name": "com.example.antiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148835388076-fshulevdnfr8tgr60d34f5h8h43eoq46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd-B167zoR8XmPGJzIOBcMnDOUO46UjSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148835388076-fshulevdnfr8tgr60d34f5h8h43eoq46.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "148835388076-8ivf8ugistss7jklathffph9nrd1439i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.antiapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
