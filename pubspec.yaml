@@ -43,6 +43,10 @@ dependencies:
   logger:
   firebase_crashlytics: ^2.7.2
   photo_manager: ^2.0.8
+  cloud_firestore: ^3.1.14
+  flutter_bloc: ^8.0.1
+  device_info_plus: ^3.2.3
+
 
 dev_dependencies:
   flutter_test:
