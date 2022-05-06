@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -17,13 +20,18 @@ class TakePictureScreen extends StatefulWidget {
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
-class TakePictureScreenState extends State<TakePictureScreen> {
+class TakePictureScreenState extends State<TakePictureScreen>
+    with TickerProviderStateMixin {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
     super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: _duration);
+    scaleAnimation = _scale.animate(_animationController);
+    offsetAnimation = _offset.animate(_animationController);
 
     _controller = CameraController(
       widget.camera,
@@ -32,6 +40,15 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
     _initializeControllerFuture = _controller.initialize();
   }
+
+  Uint8List? latestPhotoTaken;
+  late final AnimationController _animationController;
+  final Tween<double> _scale = Tween<double>(begin: 1, end: 0.5);
+  final Tween<Offset> _offset =
+      Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0, 1000));
+  late final Animation<double> scaleAnimation;
+  late final Animation<Offset> offsetAnimation;
+  final Duration _duration = const Duration(milliseconds: 500);
 
   @override
   void dispose() {
@@ -47,7 +64,29 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
+            return Stack(
+              fit: StackFit.expand,
+              alignment: Alignment.center,
+              children: [
+                CameraPreview(_controller),
+                AnimatedBuilder(
+                  animation: _animationController,
+                  child: latestPhotoTaken == null
+                      ? const SizedBox()
+                      : Image.memory(latestPhotoTaken!,
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height),
+                  builder: (context, child) => Transform.scale(
+                    scale: scaleAnimation.value,
+                    child: Transform.translate(
+                      offset: offsetAnimation.value,
+                      child: child!,
+                    ),
+                  ),
+                ),
+              ],
+            );
           } else {
             return const Center(child: CircularProgressIndicator());
           }
@@ -55,25 +94,63 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          try {
-            await _initializeControllerFuture;
-            final image = await _controller.takePicture();
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  imagePath: image.path,
-                ),
-              ),
-            );
-          } catch (e) {
-            if (kDebugMode) {
-              print(e);
-            }
+          if (await askPermission()) {
+            _replacementImage();
+
+            latestPhotoTaken =
+                await (await _controller.takePicture()).readAsBytes();
+            setState(() {});
+            _animationController.forward().then((value) {
+              latestPhotoTaken = null;
+              _animationController.value = 0;
+              setState(() {});
+            });
+          } else {
+            _showMaterialBanner(context);
           }
         },
         child: const Icon(Icons.camera_alt),
       ),
     );
+  }
+
+  Future<bool> askPermission() async {
+    final PermissionState _ps = await PhotoManager.requestPermissionExtend();
+    if (_ps.isAuth) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void _replacementImage() async {
+    final rawImage =
+        (await rootBundle.load('assets/replacement.png')).buffer.asUint8List();
+
+    final AssetEntity? _ = await PhotoManager.editor.saveImage(
+      rawImage,
+      title: 'temporary.png', // Affects EXIF reading.
+    );
+  }
+
+  void _showMaterialBanner(BuildContext context) {
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+        leading: const Icon(Icons.photo_album),
+        content: const Text('Необходим доступ к фото'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            },
+            child: const Text('Ок'),
+          ),
+          TextButton(
+            onPressed: () {
+              PhotoManager.openSetting();
+            },
+            child: const Text('Открыть настройки'),
+          ),
+        ]));
   }
 }
 
