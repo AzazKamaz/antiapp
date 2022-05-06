@@ -1,14 +1,14 @@
-import 'package:firebase_core/firebase_core.dart';
-
+import 'package:antiapp/notes/notes_screen.dart';
 import 'package:antiapp/weather/weather.dart';
+import 'package:camera/camera.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:camera/camera.dart';
 
 import '/calculator.dart';
-import '/flashlight.dart';
 import '/calendar.dart';
 import '/camera.dart';
+import '/flashlight.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -99,6 +99,13 @@ class _AppListPageState extends State<AppListPage> {
                   },
                   icon: const Icon(Icons.camera),
                   label: const Text('AntiCamera')),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const NotesScreen()));
+                  },
+                  icon: const Icon(Icons.note_add),
+                  label: const Text('AntiNotes')),
             ],
           ),
         ));
