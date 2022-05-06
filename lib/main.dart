@@ -55,7 +55,7 @@ class AntiApp extends StatelessWidget {
       supportedLocales: context.supportedLocales, 
       locale: context.locale, 
       debugShowCheckedModeBanner: false,
-      title: 'AntiApp',
+      title: LocaleKeys.antiapp.tr(),
       theme: theme.copyWith(brightness: Brightness.light),
       darkTheme: theme.copyWith(
         brightness: Brightness.dark,
@@ -153,12 +153,12 @@ class _AppListPageState extends State<AppListPage> {
                   )));
         } else {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('No camera found')));
+              .showSnackBar(SnackBar(content: Text(LocaleKeys.no_camera_found.tr(),)));
         }
       },
     };
     return Scaffold(
-        appBar: AppBar(title: const Text('AntiApp')),
+        appBar: AppBar(title: Text(LocaleKeys.antiapp.tr(),)),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
