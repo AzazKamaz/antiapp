@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart'; 
+import './translations/locale_keys.g.dart';
 
 class Flashlight extends StatefulWidget {
   const Flashlight({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class _FlashlightState extends State<Flashlight> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Press anywhere to go back')));
+          SnackBar(content: Text(LocaleKeys.press_anywhere.tr(),)));
     });
   }
 
