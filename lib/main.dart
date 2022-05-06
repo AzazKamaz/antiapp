@@ -1,3 +1,4 @@
+import 'package:antiapp/text_inverter.dart';
 import 'package:antiapp/notes/notes_screen.dart';
 import 'package:antiapp/weather/weather.dart';
 import 'package:camera/camera.dart';
@@ -106,6 +107,13 @@ class _AppListPageState extends State<AppListPage> {
                   },
                   icon: const Icon(Icons.note_add),
                   label: const Text('AntiNotes')),
+              ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TextInverter()));
+                  },
+                  icon: const Icon(Icons.text_fields_rounded),
+                  label: const Text('AntiText')),              
             ],
           ),
         ));
