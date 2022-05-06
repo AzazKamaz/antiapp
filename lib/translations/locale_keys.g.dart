@@ -1,4 +1,5 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+// If something does not work, try to replace "->'
 
 abstract class  LocaleKeys {
   static const antiapp = "AntiApp";
