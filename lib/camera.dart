@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:easy_localization/easy_localization.dart'; 
+import './translations/locale_keys.g.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -60,7 +62,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AntiCamera')),
+      appBar: AppBar(title: Text(LocaleKeys.anticamera.tr(),)),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -137,19 +139,19 @@ class TakePictureScreenState extends State<TakePictureScreen>
   void _showMaterialBanner(BuildContext context) {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
         leading: const Icon(Icons.photo_album),
-        content: const Text('Необходим доступ к фото'),
+        content: Text(LocaleKeys.photo_access_required.tr(),),
         actions: [
           TextButton(
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
-            child: const Text('Ок'),
+            child: Text(LocaleKeys.ok.tr(),),
           ),
           TextButton(
             onPressed: () {
               PhotoManager.openSetting();
             },
-            child: const Text('Открыть настройки'),
+            child: Text(LocaleKeys.open_settings.tr(),),
           ),
         ]));
   }
@@ -164,7 +166,7 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
+      appBar: AppBar(title: Text(LocaleKeys.display_the_picture.tr(),)),
       body: Image.file(File(imagePath)),
     );
   }
