@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart'; 
+import './translations/locale_keys.g.dart';
 
 class Calendar extends StatelessWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -6,7 +8,7 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AntiCalendar')),
+      appBar: AppBar(title: Text(LocaleKeys.anticalendar.tr(),)),
       body: Builder(builder: (context) {
         return const _Calendar();
       }),
@@ -67,8 +69,8 @@ class _CalendarState extends State<_Calendar> {
   Widget yearBuilder(BuildContext context, int year) {
     if (year == 0) {
       return ListTile(
-        leading: Text('Year', style: Theme.of(context).textTheme.headline6),
-        title: Text('Months where day $day is ${weekdays[weekday]}',
+        leading: Text(LocaleKeys.year.tr(), style: Theme.of(context).textTheme.headline6),
+        title: Text(LocaleKeys.months_where_day_.tr() + day.toString() + LocaleKeys.iss.tr() + weekdays[weekday],
             style: Theme.of(context).textTheme.headline6),
       );
     }
@@ -109,27 +111,27 @@ class _CalendarState extends State<_Calendar> {
   }
 }
 
-const weekdays = {
-  DateTime.monday: 'Monday',
-  DateTime.tuesday: 'Tuesday',
-  DateTime.wednesday: 'Wednesday',
-  DateTime.thursday: 'Thursday',
-  DateTime.friday: 'Friday',
-  DateTime.saturday: 'Saturday',
-  DateTime.sunday: 'Sunday',
+weekdays = {
+  DateTime.monday: LocaleKeys.monday.tr(),
+  DateTime.tuesday: LocaleKeys.tuesday.tr(),
+  DateTime.wednesday: LocaleKeys.wednesday.tr(),
+  DateTime.thursday: LocaleKeys.thursday.tr(),
+  DateTime.friday: LocaleKeys.friday.tr(),
+  DateTime.saturday: LocaleKeys.saturday.tr(),
+  DateTime.sunday: LocaleKeys.sunday.tr(),
 };
 
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Avg',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
+months = [
+  LocaleKeys.jan.tr(),
+  LocaleKeys.feb.tr(),
+  LocaleKeys.mar.tr(),
+  LocaleKeys.apr.tr(),
+  LocaleKeys.may.tr(),
+  LocaleKeys.jun.tr(),
+  LocaleKeys.jul.tr(),
+  LocaleKeys.aug.tr(),
+  LocaleKeys.sep.tr(),
+  LocaleKeys.oct.tr(),
+  LocaleKeys.nov.tr(),
+  LocaleKeys.dec.tr()
 ];
