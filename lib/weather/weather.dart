@@ -1,5 +1,6 @@
 import 'package:antiapp/weather/weather_api.dart';
 import 'package:flutter/material.dart';
+
 import 'weather_details.dart';
 
 class Weather extends StatefulWidget {
@@ -29,14 +30,25 @@ class _Weather extends State<Weather> {
           const Spacer(),
           TextField(
               controller: _searchController,
-              decoration: const InputDecoration(hintText: 'City name')),
+              decoration: InputDecoration(
+                hintText: 'City name',
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.primary),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.primary),
+                ),
+              )),
           const SizedBox(height: 16.0),
-          const Text(
+          Text(
             "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.",
             textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           const SizedBox(height: 12.0),
-          OutlinedButton.icon(
+          ElevatedButton.icon(
               onPressed: () {
                 var cityName = _searchController.text;
                 if (cityName.isNotEmpty) {

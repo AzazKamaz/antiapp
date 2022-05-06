@@ -1,15 +1,19 @@
-import 'package:antiapp/text_inverter.dart';
+import 'dart:async';
+import 'dart:math';
+
 import 'package:antiapp/notes/notes_screen.dart';
+import 'package:antiapp/text_inverter.dart';
 import 'package:antiapp/weather/weather.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '/calculator.dart';
 import '/calendar.dart';
 import '/camera.dart';
 import '/flashlight.dart';
+import 'calculator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +28,20 @@ void main() async {
 class AntiApp extends StatelessWidget {
   const AntiApp({Key? key}) : super(key: key);
 
+  static ThemeData theme = ThemeData(
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    )),
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AntiApp',
-      theme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
+      theme: theme.copyWith(brightness: Brightness.light),
+      darkTheme: theme.copyWith(
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.system,
@@ -49,72 +58,107 @@ class AppListPage extends StatefulWidget {
 }
 
 class _AppListPageState extends State<AppListPage> {
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  _playLocal() async {
+    AudioCache player = AudioCache();
+    const alarmAudioPath = 'sound.mp3';
+    player.play(alarmAudioPath);
+  }
+
+  late Timer _timer;
+
+  void startTimer() {
+    const duration = Duration(seconds: 60);
+    _timer = Timer.periodic(
+      duration,
+      (Timer timer) {
+        Random r = Random();
+        double falseProbability = .9;
+        if (r.nextDouble() > falseProbability) {
+          _playLocal();
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  static const iconSize = 36.0;
   @override
   Widget build(BuildContext context) {
+    final Map<Icon, void Function()> _apps = {
+      const Icon(Icons.calculate, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Calculator()),
+        );
+      },
+      const Icon(Icons.flashlight_off, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Flashlight()),
+        );
+      },
+      const Icon(Icons.cloud_off, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Weather()),
+        );
+      },
+      const Icon(Icons.calendar_month, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Calendar()),
+        );
+      },
+      const Icon(Icons.notes, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const NotesScreen()),
+        );
+      },
+      const Icon(Icons.translate, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const TextInverter()),
+        );
+      },
+      const Icon(Icons.camera_alt, size: iconSize): () async {
+        var cams = await availableCameras();
+        if (cams.isNotEmpty) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => TakePictureScreen(
+                    camera: cams.first,
+                  )));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('No camera found')));
+        }
+      },
+    };
     return Scaffold(
         appBar: AppBar(title: const Text('AntiApp')),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: [
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Calculator()));
-                  },
-                  icon: const Icon(Icons.abc),
-                  label: const Text('AntiCalculator')),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Flashlight()));
-                  },
-                  icon: const Icon(Icons.flashlight_off),
-                  label: const Text('AntiFlashlight')),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Weather()));
-                  },
-                  icon: const Icon(Icons.cloud_off),
-                  label: const Text('AntiWeather')),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Calendar()));
-                  },
-                  icon: const Icon(Icons.calendar_today),
-                  label: const Text('AntiCalendar')),
-              ElevatedButton.icon(
-                  onPressed: () async {
-                    var cams = await availableCameras();
-                    if (cams.isNotEmpty) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => TakePictureScreen(
-                                camera: cams.first,
-                              )));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('No camera found')));
-                    }
-                  },
-                  icon: const Icon(Icons.camera),
-                  label: const Text('AntiCamera')),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const NotesScreen()));
-                  },
-                  icon: const Icon(Icons.note_add),
-                  label: const Text('AntiNotes')),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TextInverter()));
-                  },
-                  icon: const Icon(Icons.text_fields_rounded),
-                  label: const Text('AntiText')),              
-            ],
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: MediaQuery.of(context).size.width / 2.5,
+                childAspectRatio: 1,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8),
+            itemCount: _apps.length,
+            itemBuilder: (context, index) => ElevatedButton(
+                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(1.0))),
+                child: _apps.keys.toList()[index],
+                onPressed: _apps.values.toList()[index]),
           ),
         ));
   }

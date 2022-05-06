@@ -28,55 +28,77 @@ class _CalculatorState extends State<Calculator> {
     return Scaffold(
         appBar: AppBar(title: const Text('AntiCalculator')),
         body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Spacer(),
-          CupertinoSlidingSegmentedControl<int>(
-              groupValue: segmentedControlValue,
-              backgroundColor: Colors.blue.shade200,
-              children: const <int, Widget>{
-                0: Text('Easy'),
-                1: Text('Hard'),
-                2: Text('Insane')
-              },
-              onValueChanged: (value) {
-                setState(() {
-                  segmentedControlValue = value;
-                });
-              }),
-          const Spacer(),
-          TextField(
-            // decoration: InputDecoration(),
-            maxLength: 6,
-            controller: controller,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.primary)),
+                child: TeXView(
+                    child: TeXViewDocument(calculationResult,
+                        //TODO: width does not work
+                        style: TeXViewStyle(
+                            width: MediaQuery.of(context).size.width.ceil()))),
+              ),
+              const Spacer(),
+              TextField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                maxLength: 6,
+                controller: controller,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CupertinoSlidingSegmentedControl<int>(
+                      groupValue: segmentedControlValue,
+                      backgroundColor: Colors.blue.shade200,
+                      children: const <int, Widget>{
+                        0: Text('Easy'),
+                        1: Text('Hard'),
+                        2: Text('Insane')
+                      },
+                      onValueChanged: (value) {
+                        setState(() {
+                          segmentedControlValue = value;
+                        });
+                      }),
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        if (controller.text.isNotEmpty) {
+                          setState(() {
+                            calculationResult = makeEquation(
+                                int.parse(controller.text),
+                                segmentedControlValue ?? 0);
+                          });
+                        }
+                      },
+                      icon: const Icon(Icons.check),
+                      label: const Text('Calculate')),
+                ],
+              ),
+              const Spacer(),
+              const Spacer(),
             ],
           ),
-          ElevatedButton.icon(
-              onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  setState(() {
-                    calculationResult = makeEquation(
-                        int.parse(controller.text), segmentedControlValue ?? 0);
-                  });
-                }
-              },
-              icon: const Icon(Icons.check),
-              label: const Text('Calculate')),
-          const Spacer(),
-          TeXView(
-              child: TeXViewDocument(calculationResult,
-                  //TODO: width does not work
-                  style: TeXViewStyle(
-                      width: MediaQuery.of(context).size.width.ceil()))),
-          const Spacer(),
-        ],
-      ),
-    ));
+        ));
   }
 
   String makeEquation(int from, int difficulty) {

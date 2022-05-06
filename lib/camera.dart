@@ -28,6 +28,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
   @override
   void initState() {
     super.initState();
+
     _animationController =
         AnimationController(vsync: this, duration: _duration);
     scaleAnimation = _scale.animate(_animationController);
