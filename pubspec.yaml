@@ -48,6 +48,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   device_info_plus: ^3.2.3
   audioplayers: ^0.20.1
+  theme_provider: ^0.5.0
 
 
 dev_dependencies:

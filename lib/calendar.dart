@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart'; 
+
 import './translations/locale_keys.g.dart';
 
 class Calendar extends StatelessWidget {
@@ -8,7 +9,10 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.anticalendar.tr(),)),
+      appBar: AppBar(
+          title: Text(
+        LocaleKeys.anticalendar.tr(),
+      )),
       body: Builder(builder: (context) {
         return const _Calendar();
       }),
@@ -69,8 +73,13 @@ class _CalendarState extends State<_Calendar> {
   Widget yearBuilder(BuildContext context, int year) {
     if (year == 0) {
       return ListTile(
-        leading: Text(LocaleKeys.year.tr(), style: Theme.of(context).textTheme.headline6),
-        title: Text(LocaleKeys.months_where_day_.tr() + day.toString() + LocaleKeys.iss.tr() + weekdays[weekday],
+        leading: Text(LocaleKeys.year.tr(),
+            style: Theme.of(context).textTheme.headline6),
+        title: Text(
+            LocaleKeys.months_where_day_.tr() +
+                day.toString() +
+                LocaleKeys.iss.tr() +
+                (weekdays[weekday] ?? ''),
             style: Theme.of(context).textTheme.headline6),
       );
     }
@@ -99,19 +108,22 @@ class _CalendarState extends State<_Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        weekdaySelector(context),
-        Expanded(child: daySelector(context))
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: [
+        Row(children: [
+          weekdaySelector(context),
+          Expanded(child: daySelector(context))
+        ]),
+        Expanded(
+          child: ListView.builder(itemBuilder: yearBuilder),
+        ),
       ]),
-      Expanded(
-        child: ListView.builder(itemBuilder: yearBuilder),
-      ),
-    ]);
+    );
   }
 }
 
-weekdays = {
+final weekdays = {
   DateTime.monday: LocaleKeys.monday.tr(),
   DateTime.tuesday: LocaleKeys.tuesday.tr(),
   DateTime.wednesday: LocaleKeys.wednesday.tr(),
@@ -121,7 +133,7 @@ weekdays = {
   DateTime.sunday: LocaleKeys.sunday.tr(),
 };
 
-months = [
+final months = [
   LocaleKeys.jan.tr(),
   LocaleKeys.feb.tr(),
   LocaleKeys.mar.tr(),

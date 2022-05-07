@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart'; 
+
 import './translations/locale_keys.g.dart';
 
 class TextInverter extends StatefulWidget {
@@ -16,7 +18,9 @@ class _TextInverterState extends State<TextInverter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.text_inverter.tr(),),
+        title: Text(
+          LocaleKeys.text_inverter.tr(),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -27,11 +31,13 @@ class _TextInverterState extends State<TextInverter> {
                 const SizedBox(height: 16),
                 Row(children: [
                   const Spacer(flex: 2),
-                  Text(LocaleKeys.any.tr(), style: Theme.of(context).textTheme.headline6),
+                  Text(LocaleKeys.any.tr(),
+                      style: Theme.of(context).textTheme.headline6),
                   const Spacer(flex: 1),
                   const Icon(Icons.compare_arrows),
                   const Spacer(flex: 1),
-                  Text(LocaleKeys.antiany.tr(), style: Theme.of(context).textTheme.headline6),
+                  Text(LocaleKeys.antiany.tr(),
+                      style: Theme.of(context).textTheme.headline6),
                   const Spacer(flex: 2),
                 ]),
                 Padding(
@@ -83,7 +89,9 @@ class _TextInverterState extends State<TextInverter> {
                   onPressed: () {
                     translate();
                   },
-                  child: Text(LocaleKeys.translate.tr(),),
+                  child: Text(
+                    LocaleKeys.translate.tr(),
+                  ),
                 )
               ],
             ),
@@ -96,12 +104,19 @@ class _TextInverterState extends State<TextInverter> {
   void translate() async {
     FocusScope.of(context).unfocus();
     showLoadingDialog(context);
-    await Future.delayed(const Duration(milliseconds: 3000));
-    //TODO: API call to the inverter
-    Navigator.of(context).pop();
+    final Dio _dio = Dio();
+    try {
+      final response = await _dio.post(
+          'https://antiapp.tmp.azazkamaz.me/v1/antitext',
+          data: {'text': _controller.text});
 
-    _translatedController.text = _controller.text;
-    setState(() {});
+      Navigator.of(context).pop();
+
+      _translatedController.text = response.data['text'];
+      setState(() {});
+    } catch (e) {
+      Navigator.of(context).pop();
+    }
   }
 
   showLoadingDialog(BuildContext context) => showDialog(

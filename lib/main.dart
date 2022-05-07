@@ -2,21 +2,23 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:antiapp/notes/notes_screen.dart';
+import 'package:antiapp/settings.dart';
 import 'package:antiapp/text_inverter.dart';
 import 'package:antiapp/weather/weather.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
+// delete if not needed
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart'; // delete if not needed
-import 'package:easy_localization/easy_localization.dart'; 
-import './translations/codegen_loader.g.dart'; 
-import './translations/locale_keys.g.dart'; 
+import 'package:theme_provider/theme_provider.dart';
 
 import '/calendar.dart';
 import '/camera.dart';
 import '/flashlight.dart';
+import './translations/codegen_loader.g.dart';
+import './translations/locale_keys.g.dart';
 import 'calculator.dart';
 
 void main() async {
@@ -30,10 +32,9 @@ void main() async {
   runApp(
     EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ru')],
-        path:
-            'assets/translations', 
+        path: 'assets/translations',
         fallbackLocale: const Locale('en'),
-        assetLoader: CodegenLoader(),
+        assetLoader: const CodegenLoader(),
         child: const AntiApp()),
   );
 }
@@ -42,6 +43,7 @@ class AntiApp extends StatelessWidget {
   const AntiApp({Key? key}) : super(key: key);
 
   static ThemeData theme = ThemeData(
+    splashFactory: InkRipple.splashFactory,
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -50,18 +52,39 @@ class AntiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates, 
-      supportedLocales: context.supportedLocales, 
-      locale: context.locale, 
-      debugShowCheckedModeBanner: false,
-      title: LocaleKeys.antiapp.tr(),
-      theme: theme.copyWith(brightness: Brightness.light),
-      darkTheme: theme.copyWith(
-        brightness: Brightness.dark,
+    return ThemeProvider(
+      themes: [
+        AppTheme(
+          id: 'light',
+          data: theme,
+          description: 'light theme',
+        ),
+        AppTheme(
+          id: 'dark',
+          data: ThemeData.dark().copyWith(
+            splashFactory: InkRipple.splashFactory,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+            )),
+          ),
+          description: 'dark theme',
+        ),
+      ],
+      child: ThemeConsumer(
+        child: Builder(
+          builder: (themeContext) => MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            debugShowCheckedModeBanner: false,
+            title: LocaleKeys.antiapp.tr(),
+            theme: ThemeProvider.themeOf(themeContext).data,
+            home: const AppListPage(),
+          ),
+        ),
       ),
-      themeMode: ThemeMode.system,
-      home: const AppListPage(),
     );
   }
 }
@@ -152,13 +175,23 @@ class _AppListPageState extends State<AppListPage> {
                     camera: cams.first,
                   )));
         } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(LocaleKeys.no_camera_found.tr(),)));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+            LocaleKeys.no_camera_found.tr(),
+          )));
         }
+      },
+      const Icon(Icons.settings, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => SettingsScreen()),
+        );
       },
     };
     return Scaffold(
-        appBar: AppBar(title: Text(LocaleKeys.antiapp.tr(),)),
+        appBar: AppBar(
+            title: Text(
+          LocaleKeys.antiapp.tr(),
+        )),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
