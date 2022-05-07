@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart'; 
+import '../translations/locale_keys.g.dart';
 
 import 'weather_model.dart';
 
@@ -14,7 +16,7 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AntiWeather')),
+      appBar: AppBar(title: Text(LocaleKeys.antiweather.tr(),)),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -30,20 +32,20 @@ class WeatherDetails extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Column(children: [
                   Text(
-                      "Here's the weather in your town in units you don't want to see in this life. You're fucking welcome:",
+                      LocaleKeys.weather_welcome.tr(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.caption),
                   const SizedBox(height: 20.0),
                   InformationPair(
-                      text: 'Temperature',
+                      text: LocaleKeys.temperature.tr(),
                       value: convertTemperature(model.main.temp)),
                   const SizedBox(height: 5.0),
                   InformationPair(
-                      text: 'Pressure',
+                      text: LocaleKeys.pressure.tr(),
                       value: convertPressure(model.main.pressure.toDouble())),
                   const SizedBox(height: 5.0),
                   InformationPair(
-                      text: 'Wind speed',
+                      text: LocaleKeys.wind_speed.tr(),
                       value: convertSpeed(model.wind.speed)),
                 ])),
             const SizedBox(height: 10.0),
@@ -51,7 +53,7 @@ class WeatherDetails extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Try again')),
+                child: Text(LocaleKeys.try_again.tr(),)),
             const Spacer()
           ],
         ),
@@ -61,36 +63,36 @@ class WeatherDetails extends StatelessWidget {
 
   String convertTemperature(double temp) {
     final Map<String, double> variants = {
-      'the Sun': 5778.0,
-      'the Moon': 26.0,
-      'an iron': 473.15,
-      'a cat': 311.5
+      LocaleKeys.sun.tr(): 5778.0,
+      LocaleKeys.moon.tr(): 26.0,
+      LocaleKeys.iron.tr(): 473.15,
+      LocaleKeys.cat.tr(): 311.5
     };
 
     final key = _randomKey(variants);
     final value = variants[key]!;
 
-    return (temp / value).toStringAsFixed(2) + ' of ' + key + ' temperature';
+    return (temp / value).toStringAsFixed(2) + LocaleKeys.of.tr() + key + LocaleKeys.ttemp.tr();
   }
 
   String convertSpeed(double speed) {
     final Map<String, double> variants = {
-      'a butterfly': 13.4112,
-      'Michael Phelps': 2.10109,
-      'a lion': 22.2222
+      LocaleKeys.butterfly.tr(): 13.4112,
+      LocaleKeys.michael_phelps.tr(): 2.10109,
+      LocaleKeys.lion.tr(): 22.2222
     };
 
     final key = _randomKey(variants);
     final value = variants[key]!;
 
-    return (speed / value).toStringAsFixed(2) + ' of ' + key + ' speed';
+    return (speed / value).toStringAsFixed(2) + LocaleKeys.of.tr() + key + LocaleKeys.speed.tr();
   }
 
   String convertPressure(double pressure) {
     final Map<String, double> variants = {
-      'orange juice': 1020.0,
-      'milk': 1030.0,
-      'oil': 800.0
+      LocaleKeys.juice.tr(): 1020.0,
+      LocaleKeys.mlk.tr(): 1030.0,
+      LocaleKeys.ooil.tr(): 800.0
     };
 
     final key = _randomKey(variants);
@@ -100,7 +102,7 @@ class WeatherDetails extends StatelessWidget {
     double mmHg = pressure * 0.75;
     double coeff = mmHgUnit / (value * 9.8 * 0.001);
 
-    return (mmHg * coeff).toStringAsFixed(2) + ' mm of ' + key + ' column';
+    return (mmHg * coeff).toStringAsFixed(2) + LocaleKeys.mm.tr() + key + LocaleKeys.column.tr();
   }
 }
 

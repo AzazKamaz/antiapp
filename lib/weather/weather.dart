@@ -1,5 +1,7 @@
 import 'package:antiapp/weather/weather_api.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart'; 
+import '../translations/locale_keys.g.dart';
 
 import 'weather_details.dart';
 
@@ -23,7 +25,7 @@ class _Weather extends State<Weather> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AntiWeather')),
+      appBar: AppBar(title: Text(LocaleKeys.antiweather.tr(),)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -31,7 +33,7 @@ class _Weather extends State<Weather> {
           TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'City name',
+                hintText: LocaleKeys.city_name.tr(),
                 enabledBorder: OutlineInputBorder(
                   borderSide:
                       BorderSide(color: Theme.of(context).colorScheme.primary),
@@ -43,7 +45,7 @@ class _Weather extends State<Weather> {
               )),
           const SizedBox(height: 16.0),
           Text(
-            "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.",
+            LocaleKeys.weather_hint.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText1,
           ),
@@ -56,7 +58,7 @@ class _Weather extends State<Weather> {
                 }
               },
               icon: const Icon(Icons.search),
-              label: const Text('Search')),
+              label: Text(LocaleKeys.search.tr(),)),
           const Spacer(),
         ]),
       ),
@@ -75,7 +77,7 @@ class _Weather extends State<Weather> {
   }
 
   void _displayNetworkError() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('An error occurred while searching. Try another city.')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(LocaleKeys.weather_error.tr(),)));
   }
 }

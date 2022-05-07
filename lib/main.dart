@@ -9,6 +9,10 @@ import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'; // delete if not needed
+import 'package:easy_localization/easy_localization.dart'; 
+import './translations/codegen_loader.g.dart'; 
+import './translations/locale_keys.g.dart'; 
 
 import '/calendar.dart';
 import '/camera.dart';
@@ -17,12 +21,21 @@ import 'calculator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(const AntiApp());
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ru')],
+        path:
+            'assets/translations', 
+        fallbackLocale: const Locale('en'),
+        assetLoader: CodegenLoader(),
+        child: const AntiApp()),
+  );
 }
 
 class AntiApp extends StatelessWidget {
@@ -38,8 +51,11 @@ class AntiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates, 
+      supportedLocales: context.supportedLocales, 
+      locale: context.locale, 
       debugShowCheckedModeBanner: false,
-      title: 'AntiApp',
+      title: LocaleKeys.antiapp.tr(),
       theme: theme.copyWith(brightness: Brightness.light),
       darkTheme: theme.copyWith(
         brightness: Brightness.dark,
@@ -137,12 +153,12 @@ class _AppListPageState extends State<AppListPage> {
                   )));
         } else {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('No camera found')));
+              .showSnackBar(SnackBar(content: Text(LocaleKeys.no_camera_found.tr(),)));
         }
       },
     };
     return Scaffold(
-        appBar: AppBar(title: const Text('AntiApp')),
+        appBar: AppBar(title: Text(LocaleKeys.antiapp.tr(),)),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
