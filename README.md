@@ -52,12 +52,19 @@ Useful for grading:
 
 - The iOS build is successful.
 
-- GitHub release is created.
+- The Web build is successful.
 
-- `async/await` are used.
+- GitHub release is created (using CI/CD).
 
-- `build_runnder` is used too.
-- And additionally some other architectural features from the evaluation category Advanced...
+- CI/CD contains linter check.
+
+- Localization is implemented.
+
+- Dark theme is implemented (switchable in the Settings menu).
+
+- Firebase Crashlytics is added too.
+
+- And additionally some other architectural and design features from the evaluation category Advanced...
 
 ## License
 
