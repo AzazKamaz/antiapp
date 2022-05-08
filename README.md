@@ -59,6 +59,10 @@ Useful for grading:
 - `build_runnder` is used too.
 - And additionally some other architectural features from the evaluation category Advanced...
 
+## License
+
+AntiApp is available under the [MIT license](https://github.com/AzazKamaz/antiapp/blob/master/LICENSE).
+
 ## AntiDev Team
 
 Aleksandr Krotov, Karina Singatullina, Gleb Osotov, Igor Belov.
