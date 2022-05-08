@@ -20,6 +20,14 @@ Just download and install APK from Releases section of the repository.
 
 - Screen of **AntiCalendar**.
 
+- Screen of **AntiNotes**.
+
+- Screen of **AntiText**.
+
+- **Settings** screen.
+
+- **Info** screen.
+
 ## Features
 
 Conceptual:
@@ -30,9 +38,13 @@ Conceptual:
 
 - **AntiWeather** shows the weather in units you don't want to see it in. Uses [OpenWeather API](https://openweathermap.org).
 
-- **AntiCamera** (underway) deletes the last photo when taking a picture.
+- **AntiCamera** deletes the last photo when taking a picture.
 
 - **AntiCalendar** shows in what years and months there was such a number with such a day of the week.
+
+- **AntiNotes** allows you to create notes, but then shows other users' notes.
+
+- **AntiText** inverts the entered text.
 
 Useful for grading:
 
