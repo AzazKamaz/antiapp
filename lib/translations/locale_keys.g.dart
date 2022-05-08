@@ -1,8 +1,8 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 // If something does not work, try to replace "->'
 
-abstract class  LocaleKeys {
-  static const antiapp = "AntiApp";
+abstract class LocaleKeys {
+  static const antiapp = "antiapp";
   static const no_camera_found = "No camera found";
   static const anticalculator = "AntiCalculator";
   static const easy = "Easy";
@@ -48,10 +48,13 @@ abstract class  LocaleKeys {
   static const add = "Add";
   static const antiweather = "AntiWeather";
   static const city_name = "City name";
-  static const weather_hint = "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.";
+  static const weather_hint =
+      "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.";
   static const search = "Search";
-  static const weather_error = "An error occurred while searching. Try another city.";
-  static const weather_welcome = "Here's the weather in your town in units you don't want to see in this life. You're fucking welcome:";
+  static const weather_error =
+      "An error occurred while searching. Try another city.";
+  static const weather_welcome =
+      "Here's the weather in your town in units you don't want to see in this life. You're fucking welcome:";
   static const temperature = "Temperature";
   static const pressure = "Pressure";
   static const wind_speed = "Wind speed";

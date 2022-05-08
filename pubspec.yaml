@@ -49,6 +49,7 @@ dependencies:
   device_info_plus: ^3.2.3
   audioplayers: ^0.20.1
   theme_provider: ^0.5.0
+  url_launcher: ^6.1.0
 
 
 dev_dependencies:

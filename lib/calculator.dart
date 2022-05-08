@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tex/flutter_tex.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import './translations/locale_keys.g.dart';
 
 class Calculator extends StatefulWidget {
@@ -28,7 +29,10 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(LocaleKeys.anticalculator.tr(),)),
+        appBar: AppBar(
+            title: Text(
+          LocaleKeys.anticalculator.tr(),
+        )),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -36,6 +40,7 @@ class _CalculatorState extends State<Calculator> {
             children: [
               const Spacer(),
               Container(
+                height: 100,
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -73,9 +78,15 @@ class _CalculatorState extends State<Calculator> {
                       groupValue: segmentedControlValue,
                       backgroundColor: Colors.blue.shade200,
                       children: <int, Widget>{
-                        0: Text(LocaleKeys.easy.tr(),),
-                        1: Text(LocaleKeys.hard.tr(),),
-                        2: Text(LocaleKeys.insane.tr(),)
+                        0: Text(
+                          LocaleKeys.easy.tr(),
+                        ),
+                        1: Text(
+                          LocaleKeys.hard.tr(),
+                        ),
+                        // 2: Text(
+                        //   LocaleKeys.insane.tr(),
+                        // )
                       },
                       onValueChanged: (value) {
                         setState(() {
@@ -93,7 +104,9 @@ class _CalculatorState extends State<Calculator> {
                         }
                       },
                       icon: const Icon(Icons.check),
-                      label: Text(LocaleKeys.calculate.tr(),)),
+                      label: Text(
+                        LocaleKeys.calculate.tr(),
+                      )),
                 ],
               ),
               const Spacer(),

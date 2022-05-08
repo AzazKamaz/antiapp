@@ -61,10 +61,12 @@ class CodegenLoader extends AssetLoader {
     "add": "Добавить",
     "antiweather": "АнтиПогода",
     "city_name": "Город",
-    "weather_hint": "Просто введите название города, и я не покажу ничего полезного. Надеюсь, вам есть 18.",
+    "weather_hint":
+        "Просто введите название города, и я не покажу ничего полезного. Надеюсь, вам есть 18.",
     "search": "Поиск",
     "weather_error": "Ошибка. Попробуйте ввести название другого города.",
-    "weather_welcome": "Погода в вашем городе в единицах измерения, какие вы не хотели бы видеть в этой жизни. Не за что:",
+    "weather_welcome":
+        "Погода в вашем городе в единицах измерения, какие вы не хотели бы видеть в этой жизни. Не за что:",
     "temperature": "Температура",
     "pressure": "Давление",
     "wind_speed": "Скорость ветра",
@@ -132,10 +134,12 @@ class CodegenLoader extends AssetLoader {
     "add": "Add",
     "antiweather": "AntiWeather",
     "city_name": "City name",
-    "weather_hint": "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.",
+    "weather_hint":
+        "It's simple. Type in the name of the city, and I won't show you anything useful. I hope you are over 18.",
     "search": "Search",
     "weather_error": "An error occurred while searching. Try another city.",
-    "weather_welcome": "Here's the weather in your town in units you don't want to see in this life. You're fucking welcome:",
+    "weather_welcome":
+        "Here's the weather in your town in units you don't want to see in this life. You're fucking welcome:",
     "temperature": "Temperature",
     "pressure": "Pressure",
     "wind_speed": "Wind speed",
@@ -157,7 +161,7 @@ class CodegenLoader extends AssetLoader {
     "column": " column"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
-    "ar": ru,
+    "ru": ru,
     "en": en
   };
 }

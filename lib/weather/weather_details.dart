@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart'; 
-import '../translations/locale_keys.g.dart';
 
+import '../translations/locale_keys.g.dart';
 import 'weather_model.dart';
 
 class WeatherDetails extends StatelessWidget {
@@ -16,14 +16,17 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.antiweather.tr(),)),
+      appBar: AppBar(
+          title: Text(
+        LocaleKeys.antiweather.tr(),
+      )),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Spacer(),
-            //TODO(igoor_bb) add picture here
+            //TODO(igooor_bb) add picture here
             FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(model.name,
@@ -31,8 +34,7 @@ class WeatherDetails extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Column(children: [
-                  Text(
-                      LocaleKeys.weather_welcome.tr(),
+                  Text(LocaleKeys.weather_welcome.tr(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.caption),
                   const SizedBox(height: 20.0),
@@ -53,7 +55,9 @@ class WeatherDetails extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(LocaleKeys.try_again.tr(),)),
+                child: Text(
+                  LocaleKeys.try_again.tr(),
+                )),
             const Spacer()
           ],
         ),
@@ -72,7 +76,10 @@ class WeatherDetails extends StatelessWidget {
     final key = _randomKey(variants);
     final value = variants[key]!;
 
-    return (temp / value).toStringAsFixed(2) + LocaleKeys.of.tr() + key + LocaleKeys.ttemp.tr();
+    return (temp / value).toStringAsFixed(2) +
+        LocaleKeys.of.tr() +
+        key +
+        LocaleKeys.ttemp.tr();
   }
 
   String convertSpeed(double speed) {
@@ -85,7 +92,10 @@ class WeatherDetails extends StatelessWidget {
     final key = _randomKey(variants);
     final value = variants[key]!;
 
-    return (speed / value).toStringAsFixed(2) + LocaleKeys.of.tr() + key + LocaleKeys.speed.tr();
+    return (speed / value).toStringAsFixed(2) +
+        LocaleKeys.of.tr() +
+        key +
+        LocaleKeys.speed.tr();
   }
 
   String convertPressure(double pressure) {
@@ -102,7 +112,10 @@ class WeatherDetails extends StatelessWidget {
     double mmHg = pressure * 0.75;
     double coeff = mmHgUnit / (value * 9.8 * 0.001);
 
-    return (mmHg * coeff).toStringAsFixed(2) + LocaleKeys.mm.tr() + key + LocaleKeys.column.tr();
+    return (mmHg * coeff).toStringAsFixed(2) +
+        LocaleKeys.mm.tr() +
+        key +
+        LocaleKeys.column.tr();
   }
 }
 

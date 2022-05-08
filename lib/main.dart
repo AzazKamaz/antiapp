@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:antiapp/info_screen.dart';
 import 'package:antiapp/notes/notes_screen.dart';
 import 'package:antiapp/settings.dart';
 import 'package:antiapp/text_inverter.dart';
@@ -42,13 +43,15 @@ void main() async {
 class AntiApp extends StatelessWidget {
   const AntiApp({Key? key}) : super(key: key);
 
-  static ThemeData theme = ThemeData(
-    splashFactory: InkRipple.splashFactory,
-    elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    )),
-  );
+  ThemeData makeTheme(ThemeData base) {
+    return base.copyWith(
+      splashFactory: InkRipple.splashFactory,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      )),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +59,13 @@ class AntiApp extends StatelessWidget {
       themes: [
         AppTheme(
           id: 'light',
-          data: theme,
+          data: makeTheme(ThemeData.light()),
           description: 'light theme',
         ),
         AppTheme(
           id: 'dark',
-          data: ThemeData.dark().copyWith(
-            splashFactory: InkRipple.splashFactory,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-            )),
+          data: makeTheme(
+            ThemeData.dark(),
           ),
           description: 'dark theme',
         ),
@@ -183,7 +181,12 @@ class _AppListPageState extends State<AppListPage> {
       },
       const Icon(Icons.settings, size: iconSize): () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => SettingsScreen()),
+          MaterialPageRoute(builder: (context) => const SettingsScreen()),
+        );
+      },
+      const Icon(Icons.info_outline, size: iconSize): () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const InfoScreen()),
         );
       },
     };
@@ -205,7 +208,7 @@ class _AppListPageState extends State<AppListPage> {
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                     backgroundColor: MaterialStateProperty.all<Color>(
                         Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                            .withOpacity(1.0))),
+                            .withOpacity(0.8))),
                 child: _apps.keys.toList()[index],
                 onPressed: _apps.values.toList()[index]),
           ),
