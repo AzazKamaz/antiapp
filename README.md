@@ -44,7 +44,7 @@ Conceptual:
 
 - **AntiNotes** allows you to create notes, but then shows other users' notes.
 
-- **AntiText** inverts the entered text.
+- **AntiText** inverts the entered text according to the author's NLP technique with use of AI.
 
 Useful for grading:
 
