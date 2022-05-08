@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:antiapp/info_screen.dart';
+import 'package:antiapp/about.dart';
 import 'package:antiapp/notes/notes_screen.dart';
 import 'package:antiapp/settings.dart';
 import 'package:antiapp/text_inverter.dart';
@@ -185,9 +185,7 @@ class _AppListPageState extends State<AppListPage> {
         );
       },
       const Icon(Icons.info_outline, size: iconSize): () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const InfoScreen()),
-        );
+        showAntiAboutDialog(context);
       },
     };
     return Scaffold(
