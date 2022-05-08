@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-import './translations/locale_keys.g.dart';
-
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     Key? key,
@@ -62,10 +60,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        LocaleKeys.anticamera.tr(),
-      )),
+      appBar: AppBar(title: Text('anticamera'.tr())),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -143,25 +138,19 @@ class TakePictureScreenState extends State<TakePictureScreen>
   void _showMaterialBanner(BuildContext context) {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
         leading: const Icon(Icons.photo_album),
-        content: Text(
-          LocaleKeys.photo_access_required.tr(),
-        ),
+        content: Text('photo_access_required'.tr()),
         actions: [
           TextButton(
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
-            child: Text(
-              LocaleKeys.ok.tr(),
-            ),
+            child: Text('ok'.tr()),
           ),
           TextButton(
             onPressed: () {
               PhotoManager.openSetting();
             },
-            child: Text(
-              LocaleKeys.open_settings.tr(),
-            ),
+            child: Text('open_settings'.tr()),
           ),
         ]));
   }
@@ -176,10 +165,7 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        LocaleKeys.display_the_picture.tr(),
-      )),
+      appBar: AppBar(title: Text('display_the_picture'.tr())),
       body: Image.file(File(imagePath)),
     );
   }

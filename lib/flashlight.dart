@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart'; 
-import './translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Flashlight extends StatefulWidget {
   const Flashlight({Key? key}) : super(key: key);
@@ -14,8 +13,8 @@ class _FlashlightState extends State<Flashlight> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.press_anywhere.tr(),)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('press_anywhere'.tr())));
     });
   }
 

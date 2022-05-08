@@ -1,7 +1,6 @@
 import 'package:antiapp/weather/weather_api.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart'; 
-import '../translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'weather_details.dart';
 
@@ -25,7 +24,7 @@ class _Weather extends State<Weather> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.antiweather.tr(),)),
+      appBar: AppBar(title: Text('antiweather'.tr())),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -33,7 +32,7 @@ class _Weather extends State<Weather> {
           TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: LocaleKeys.city_name.tr(),
+                hintText: 'city_name'.tr(),
                 enabledBorder: OutlineInputBorder(
                   borderSide:
                       BorderSide(color: Theme.of(context).colorScheme.primary),
@@ -45,7 +44,7 @@ class _Weather extends State<Weather> {
               )),
           const SizedBox(height: 16.0),
           Text(
-            LocaleKeys.weather_hint.tr(),
+            'weather_hint'.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText1,
           ),
@@ -58,7 +57,7 @@ class _Weather extends State<Weather> {
                 }
               },
               icon: const Icon(Icons.search),
-              label: Text(LocaleKeys.search.tr(),)),
+              label: Text('search'.tr())),
           const Spacer(),
         ]),
       ),
@@ -77,7 +76,7 @@ class _Weather extends State<Weather> {
   }
 
   void _displayNetworkError() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(LocaleKeys.weather_error.tr(),)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('weather_error'.tr())));
   }
 }

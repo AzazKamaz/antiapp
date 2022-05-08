@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tex/flutter_tex.dart';
 
-import './translations/locale_keys.g.dart';
-
 class Calculator extends StatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
@@ -29,10 +27,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-          LocaleKeys.anticalculator.tr(),
-        )),
+        appBar: AppBar(title: Text('anticalculator'.tr())),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -78,15 +73,9 @@ class _CalculatorState extends State<Calculator> {
                       groupValue: segmentedControlValue,
                       backgroundColor: Colors.blue.shade200,
                       children: <int, Widget>{
-                        0: Text(
-                          LocaleKeys.easy.tr(),
-                        ),
-                        1: Text(
-                          LocaleKeys.hard.tr(),
-                        ),
-                        // 2: Text(
-                        //   LocaleKeys.insane.tr(),
-                        // )
+                        0: Text('easy'.tr()),
+                        1: Text('hard'.tr()),
+                        // 2: Text('insane'.tr())
                       },
                       onValueChanged: (value) {
                         setState(() {
@@ -104,9 +93,7 @@ class _CalculatorState extends State<Calculator> {
                         }
                       },
                       icon: const Icon(Icons.check),
-                      label: Text(
-                        LocaleKeys.calculate.tr(),
-                      )),
+                      label: Text('calculate'.tr())),
                 ],
               ),
               const Spacer(),

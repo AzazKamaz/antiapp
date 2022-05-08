@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import './translations/locale_keys.g.dart';
-
 class TextInverter extends StatefulWidget {
   const TextInverter({Key? key}) : super(key: key);
 
@@ -18,9 +16,7 @@ class _TextInverterState extends State<TextInverter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          LocaleKeys.text_inverter.tr(),
-        ),
+        title: Text('text_inverter'.tr()),
       ),
       body: SafeArea(
         child: Padding(
@@ -31,13 +27,17 @@ class _TextInverterState extends State<TextInverter> {
                 const SizedBox(height: 16),
                 Row(children: [
                   const Spacer(flex: 2),
-                  Text(LocaleKeys.any.tr(),
-                      style: Theme.of(context).textTheme.headline6),
+                  Text(
+                    'any'.tr(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                   const Spacer(flex: 1),
                   const Icon(Icons.compare_arrows),
                   const Spacer(flex: 1),
-                  Text(LocaleKeys.antiany.tr(),
-                      style: Theme.of(context).textTheme.headline6),
+                  Text(
+                    'antiany'.tr(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                   const Spacer(flex: 2),
                 ]),
                 Padding(
@@ -89,9 +89,7 @@ class _TextInverterState extends State<TextInverter> {
                   onPressed: () {
                     translate();
                   },
-                  child: Text(
-                    LocaleKeys.translate.tr(),
-                  ),
+                  child: Text('translate'.tr()),
                 )
               ],
             ),
