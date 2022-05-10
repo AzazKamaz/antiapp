@@ -30,9 +30,9 @@ class WeatherDetails extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(model.name,
                     style: Theme.of(context).textTheme.headline1)),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-              child: Flexible(
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Column(
                   children: [
                     Text('weather_welcome'.tr(),
