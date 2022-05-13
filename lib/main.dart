@@ -187,20 +187,30 @@ class _AppListPageState extends State<AppListPage> {
         appBar: AppBar(title: Text('antiapp'.tr())),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: MediaQuery.of(context).size.width / 2.5,
-                childAspectRatio: 1,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8),
-            itemCount: _apps.length,
-            itemBuilder: (context, index) => ElevatedButton(
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                            .withOpacity(0.8))),
-                child: _apps.keys.toList()[index],
-                onPressed: _apps.values.toList()[index]),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent:
+                        min(MediaQuery.of(context).size.width, 500) / 3,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8),
+                itemCount: _apps.length,
+                itemBuilder: (context, index) => ElevatedButton(
+                    style: Theme.of(context)
+                        .elevatedButtonTheme
+                        .style
+                        ?.copyWith(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color((Random().nextDouble() * 0xFFFFFF)
+                                        .toInt())
+                                    .withOpacity(0.8))),
+                    child: _apps.keys.toList()[index],
+                    onPressed: _apps.values.toList()[index]),
+              ),
+            ),
           ),
         ));
   }

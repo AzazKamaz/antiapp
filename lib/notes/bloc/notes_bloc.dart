@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../notes_model.dart';
@@ -36,14 +38,16 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   FutureOr<void> _addNote(AddNote event, Emitter<NotesState> emit) async {
     emit(NotesLoading(state.notes));
     final id = await _getId();
-    if (id != null) {
-      final note = NotesModel(id, event.content);
-      await _firestore.collection('notes').add(note.toJson());
-      add(LoadNotes());
-    }
+
+    final note = NotesModel(id ?? UniqueKey().toString(), event.content);
+    await _firestore.collection('notes').add(note.toJson());
+    add(LoadNotes());
   }
 
   Future<String?> _getId() async {
+    if (kIsWeb) {
+      return null;
+    }
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
       var iosDeviceInfo = await deviceInfo.iosInfo;

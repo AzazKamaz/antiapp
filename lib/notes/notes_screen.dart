@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'bloc/notes_bloc.dart';
 
@@ -65,7 +65,7 @@ class _NotesScreenState extends State<NotesScreen> {
         builder: (context) => Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

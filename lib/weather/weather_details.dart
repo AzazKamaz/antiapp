@@ -25,7 +25,6 @@ class WeatherDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Spacer(),
-            //TODO(igooor_bb) add picture here
             FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(model.name,

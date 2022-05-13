@@ -1,12 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_manager/photo_manager.dart';
+
+import './utils/native.dart' if (dart.library.html) './utils/web.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -95,8 +97,8 @@ class TakePictureScreenState extends State<TakePictureScreen>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          if (await askPermission()) {
-            _replacementImage();
+          if (kIsWeb) {
+            webDownload();
 
             latestPhotoTaken =
                 await (await _controller.takePicture()).readAsBytes();
@@ -107,7 +109,20 @@ class TakePictureScreenState extends State<TakePictureScreen>
               setState(() {});
             });
           } else {
-            _showMaterialBanner(context);
+            if (await askPermission()) {
+              _replacementImage();
+
+              latestPhotoTaken =
+                  await (await _controller.takePicture()).readAsBytes();
+              setState(() {});
+              _animationController.forward().then((value) {
+                latestPhotoTaken = null;
+                _animationController.value = 0;
+                setState(() {});
+              });
+            } else {
+              _showMaterialBanner(context);
+            }
           }
         },
         child: const Icon(Icons.camera_alt),
@@ -153,20 +168,5 @@ class TakePictureScreenState extends State<TakePictureScreen>
             child: Text('open_settings'.tr()),
           ),
         ]));
-  }
-}
-
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key? key, required this.imagePath})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('display_the_picture'.tr())),
-      body: Image.file(File(imagePath)),
-    );
   }
 }
