@@ -4,7 +4,11 @@ A valiant attempt to make an app that will revolutionize the way users think abo
 
 ## How to build
 
-Just download and install APK from Releases section of the repository.
+Just use `flutter build apk` / `futter build ios` / `flutter build web`
+
+Also we are providing pre build releases:
+- Android apk on [releases page](https://github.com/AzazKamaz/antiapp/releases/latest)
+- Web release on [Github Pages](https://azazkamaz.github.io/antiapp/)
 
 ## Screens
 
