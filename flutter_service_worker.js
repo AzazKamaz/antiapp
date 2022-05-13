@@ -79,7 +79,7 @@ const RESOURCES = {
 "assets/packages/flutter_tex/js/katex/mhchem.min.js": "9b29ccab32b45fb570484fdf14724255",
 "assets/packages/flutter_tex/js/katex/katex.min.css": "c9f7e21f3011f52c6b9a93b6aeb92edb",
 "assets/packages/flutter_tex/js/katex/index.html": "d72365d725f76c51dbcb8931ca70dd68",
-"/": "d822fd01320559b15d0041b2490a1616",
+"/": "ece52a8bb468ecacceabbf845fc74aa9",
 "assets/packages/flutter_tex/js/mathjax/MathJax.js": "b2c103388b71bb3d11cbf9aa45fe9b68",
 "assets/packages/flutter_tex/js/mathjax/jax/element/mml/jax.js": "70c06ee3014f9b36027101a7ca1fdd0f",
 "assets/packages/flutter_tex/js/mathjax/jax/element/mml/optable/MiscTechnical.js": "19cd81efdd76cc0fed0c14c05560761c",
@@ -228,7 +228,7 @@ const RESOURCES = {
 "assets/assets/translations/en.json": "6c994b9f2ef464bc13be69d8c12055a3",
 "assets/assets/translations/ru.json": "8fb855ea3e3b9ab353d059cf4f8b4cec",
 "flutter.js": "0816e65a103ba8ba51b174eeeeb2cb67",
-"index.html": "d822fd01320559b15d0041b2490a1616",
+"index.html": "ece52a8bb468ecacceabbf845fc74aa9",
 "manifest.json": "937a44fa3f6ea96a28eec89d2987f66a"
 };
 
